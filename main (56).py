@@ -21,6 +21,10 @@ from branding import (
 
 st.set_page_config(page_title=APP_TITLE, page_icon="🧱", layout="wide")
 
+if os.path.exists("style.css"):
+    with open("style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 # =============================================================================
 # 1. GRADATION CURVE HELPERS (particle size distribution)
 # =============================================================================
