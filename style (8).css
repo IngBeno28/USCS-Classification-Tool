@@ -1,0 +1,161 @@
+/* style.css — Automation_hub USCS Soil Classification System
+   Brand color pulled from branding.py (PRIMARY_COLOR = #0052cc).
+   If you change PRIMARY_COLOR there, update the hex values below to match. */
+
+:root {
+    --brand-primary: #0052cc;
+    --brand-primary-dark: #003d99;
+    --brand-primary-light: #e6f0ff;
+    --brand-text: #1a1a1a;
+    --brand-muted: #6b7280;
+    --brand-border: #e2e8f0;
+}
+
+/* --- Overall app background & typography --- */
+.stApp {
+    background-color: #fafbfc;
+}
+
+h1, h2, h3 {
+    color: var(--brand-text);
+    font-weight: 700;
+}
+
+h1 {
+    border-bottom: 3px solid var(--brand-primary);
+    padding-bottom: 0.4rem;
+}
+
+/* --- Captions / subtitle under title --- */
+[data-testid="stCaptionContainer"] {
+    color: var(--brand-muted);
+    font-size: 0.95rem;
+}
+
+/* --- Buttons --- */
+.stButton > button {
+    background-color: var(--brand-primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 600;
+    transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.stButton > button:hover {
+    background-color: var(--brand-primary-dark);
+    color: white;
+}
+
+.stButton > button:active {
+    transform: scale(0.98);
+}
+
+/* --- Download buttons: outlined style to distinguish from primary actions --- */
+.stDownloadButton > button {
+    background-color: white;
+    color: var(--brand-primary);
+    border: 2px solid var(--brand-primary);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.stDownloadButton > button:hover {
+    background-color: var(--brand-primary-light);
+    color: var(--brand-primary-dark);
+    border-color: var(--brand-primary-dark);
+}
+
+/* --- Tabs (Single Sample / Batch Processing) --- */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    border-bottom: 2px solid var(--brand-border);
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 8px 8px 0 0;
+    padding: 0.6rem 1.2rem;
+    font-weight: 600;
+    color: var(--brand-muted);
+}
+
+.stTabs [aria-selected="true"] {
+    background-color: var(--brand-primary-light);
+    color: var(--brand-primary-dark);
+    border-bottom: 3px solid var(--brand-primary);
+}
+
+/* --- Expanders (Certification Details, etc.) --- */
+[data-testid="stExpander"] {
+    border: 1px solid var(--brand-border);
+    border-radius: 10px;
+    background-color: white;
+}
+
+[data-testid="stExpander"] summary {
+    font-weight: 600;
+    color: var(--brand-text);
+}
+
+/* --- Metrics (f'c, Cu, LL, etc.) --- */
+[data-testid="stMetric"] {
+    background-color: white;
+    border: 1px solid var(--brand-border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+[data-testid="stMetricLabel"] {
+    color: var(--brand-muted);
+}
+
+[data-testid="stMetricValue"] {
+    color: var(--brand-primary-dark);
+    font-weight: 700;
+}
+
+/* --- Success / Info / Warning / Error boxes --- */
+[data-testid="stAlert"] {
+    border-radius: 10px;
+    border-left-width: 5px;
+}
+
+/* --- DataFrames / data editors --- */
+[data-testid="stDataFrame"], [data-testid="stDataEditor"] {
+    border: 1px solid var(--brand-border);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* --- Text inputs / number inputs --- */
+.stTextInput > div > div > input,
+.stNumberInput > div > div > input {
+    border-radius: 8px;
+    border: 1px solid var(--brand-border);
+}
+
+.stTextInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 1px var(--brand-primary);
+}
+
+/* --- File uploader --- */
+[data-testid="stFileUploader"] {
+    border: 2px dashed var(--brand-border);
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+/* --- Horizontal rule dividers --- */
+hr {
+    border-top: 1px solid var(--brand-border);
+}
+
+/* --- Sidebar (if used) --- */
+[data-testid="stSidebar"] {
+    background-color: white;
+    border-right: 1px solid var(--brand-border);
+}
