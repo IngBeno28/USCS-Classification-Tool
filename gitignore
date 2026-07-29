@@ -1,0 +1,29 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- Virtual environments ---
+venv/
+env/
+.venv/
+ENV/
+
+# --- Streamlit secrets (never commit credentials) ---
+.streamlit/secrets.toml
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+*.swp
+
+# --- Jupyter (if you ever prototype logic in a notebook) ---
+.ipynb_checkpoints/
