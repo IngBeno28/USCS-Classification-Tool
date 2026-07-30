@@ -1,4 +1,4 @@
-# main.py — USCS Soil Classification System (ASTM D2487)
+# main.py  -  USCS Soil Classification System (ASTM D2487)
 # Automation_hub Engineering Group Limited
 
 import io
@@ -157,7 +157,7 @@ def classify_coarse_grained(is_gravel, pct_fines, Cu, Cc, LL, PI, is_np, is_orga
         grading_known = True
     else:
         grading_symbol = "P"
-        grading_known = False  # not enough gradation data to confirm — flagged in notes
+        grading_known = False  # not enough gradation data to confirm  -  flagged in notes
 
     # Silty (M) vs clayey (C) vs borderline, based on fines plasticity
     if PI < 4 or not above_A:
@@ -169,13 +169,13 @@ def classify_coarse_grained(is_gravel, pct_fines, Cu, Cc, LL, PI, is_np, is_orga
 
     notes = []
     if not grading_known:
-        notes.append("Insufficient gradation data to confirm Cu/Cc — grading (W/P) assumed poorly-graded pending full sieve data.")
+        notes.append("Insufficient gradation data to confirm Cu/Cc  -  grading (W/P) assumed poorly-graded pending full sieve data.")
 
     if pct_fines < 5:
         return f"{prefix}{grading_symbol}", False, notes
     elif pct_fines > 12:
         if fines_borderline:
-            notes.append("Fines plot in the 4≤PI≤7 hatched zone on/above the A-line — borderline silty/clayey classification.")
+            notes.append("Fines plot in the 4<=PI<=7 hatched zone on/above the A-line  -  borderline silty/clayey classification.")
             return f"{prefix}C-{prefix}M", True, notes
         return f"{prefix}{fines_symbol}", False, notes
     else:
@@ -183,7 +183,7 @@ def classify_coarse_grained(is_gravel, pct_fines, Cu, Cc, LL, PI, is_np, is_orga
         if fines_borderline:
             notes.append(
                 "Both the gradation (5-12% fines, dual symbol required) and the fines plasticity "
-                "(4≤PI≤7 hatched zone) are borderline. Report as a dual symbol using engineering "
+                "(4<=PI<=7 hatched zone) are borderline. Report as a dual symbol using engineering "
                 "judgment on the fines behavior, e.g. "
                 f"{prefix}{grading_symbol}-{prefix}C or {prefix}{grading_symbol}-{prefix}M."
             )
@@ -198,7 +198,7 @@ def classify_uscs(pct_gravel, pct_sand, pct_fines, Cu, Cc, LL, PI, is_np, is_org
         return {
             "symbol": "PT", "borderline": False, "category": "Highly Organic Soil",
             "notes": ["Identified by visual-manual examination (color, odor, fibrous/spongy texture) "
-                      "per ASTM D2487 — the standard classification procedure does not apply to peat."]
+                      "per ASTM D2487  -  the standard classification procedure does not apply to peat."]
         }
 
     if pct_fines >= 50:
@@ -210,27 +210,27 @@ def classify_uscs(pct_gravel, pct_sand, pct_fines, Cu, Cc, LL, PI, is_np, is_org
         symbol, borderline, notes = classify_coarse_grained(
             is_gravel, pct_fines, Cu, Cc, LL, PI, is_np, is_organic
         )
-        category = "Coarse-Grained Soil — Gravel" if is_gravel else "Coarse-Grained Soil — Sand"
+        category = "Coarse-Grained Soil  -  Gravel" if is_gravel else "Coarse-Grained Soil  -  Sand"
         return {"symbol": symbol, "borderline": borderline, "category": category, "notes": notes}
 
 
 USCS_DESCRIPTIONS = {
-    "GW": "Well-graded gravel, little to no fines. Excellent bearing capacity, permeable, minimal settlement — ideal for structural fill, drainage layers, and road base.",
+    "GW": "Well-graded gravel, little to no fines. Excellent bearing capacity, permeable, minimal settlement  -  ideal for structural fill, drainage layers, and road base.",
     "GP": "Poorly-graded gravel, little to no fines. Good bearing capacity but more uniform void structure than GW; still generally excellent as fill/base with good compaction.",
     "GM": "Silty gravel, gravel-sand-silt mixture. Good bearing capacity but fines increase moisture/frost sensitivity; permeability reduced versus clean gravel.",
     "GC": "Clayey gravel, gravel-sand-clay mixture. Fair to good strength; clay fines add cohesion but reduce permeability and increase moisture sensitivity.",
-    "SW": "Well-graded sand, little to no fines. Good bearing capacity, free-draining — suitable for fill and drainage applications.",
+    "SW": "Well-graded sand, little to no fines. Good bearing capacity, free-draining  -  suitable for fill and drainage applications.",
     "SP": "Poorly-graded (uniform) sand, little to no fines. Moderate bearing capacity, free-draining, but more prone to particle rearrangement/settlement under load or vibration.",
     "SM": "Silty sand, sand-silt mixture. Fair bearing capacity; fines make it moisture- and frost-sensitive, reduce permeability.",
     "SC": "Clayey sand, sand-clay mixture. Fair strength with some cohesion from clay fines; reduced permeability, moisture-sensitive.",
-    "ML": "Inorganic silt, low plasticity. Low strength, high frost susceptibility, poor drainage — generally a poor subgrade/fill material.",
+    "ML": "Inorganic silt, low plasticity. Low strength, high frost susceptibility, poor drainage  -  generally a poor subgrade/fill material.",
     "CL": "Inorganic clay, low to medium plasticity (lean clay). Moderate strength when compacted and dry; shrink-swell and moisture sensitivity are moderate.",
-    "CL-ML": "Borderline silt/lean clay (hatched zone). Behavior intermediate between ML and CL — treat with the more conservative (ML-like) assumption unless further testing narrows it down.",
-    "MH": "Inorganic silt, high plasticity (elastic silt). Poor engineering behavior — high compressibility, low strength, poor drainage.",
-    "CH": "Inorganic clay, high plasticity (fat clay). High shrink-swell potential, low permeability, low strength when wet — a difficult subgrade material without treatment.",
-    "OL": "Organic silt/clay, low plasticity. Poor engineering properties, compressible, prone to decomposition/settlement over time — unsuitable for structural support.",
-    "OH": "Organic silt/clay, high plasticity. Very poor engineering properties — highly compressible and weak; unsuitable for structural support without significant treatment.",
-    "PT": "Peat and other highly organic soils. Extremely poor engineering properties — very high compressibility, very low strength; unsuitable for foundations without full removal/replacement.",
+    "CL-ML": "Borderline silt/lean clay (hatched zone). Behavior intermediate between ML and CL  -  treat with the more conservative (ML-like) assumption unless further testing narrows it down.",
+    "MH": "Inorganic silt, high plasticity (elastic silt). Poor engineering behavior  -  high compressibility, low strength, poor drainage.",
+    "CH": "Inorganic clay, high plasticity (fat clay). High shrink-swell potential, low permeability, low strength when wet  -  a difficult subgrade material without treatment.",
+    "OL": "Organic silt/clay, low plasticity. Poor engineering properties, compressible, prone to decomposition/settlement over time  -  unsuitable for structural support.",
+    "OH": "Organic silt/clay, high plasticity. Very poor engineering properties  -  highly compressible and weak; unsuitable for structural support without significant treatment.",
+    "PT": "Peat and other highly organic soils. Extremely poor engineering properties  -  very high compressibility, very low strength; unsuitable for foundations without full removal/replacement.",
 }
 
 
@@ -244,7 +244,7 @@ def get_description(symbol: str) -> str:
             if len(parts) == 2:
                 return (f"Dual/borderline classification between {parts[0]} and {parts[1]}. "
                          f"{parts[0]}: {USCS_DESCRIPTIONS[parts[0]]} {parts[1]}: {USCS_DESCRIPTIONS[parts[1]]}")
-    return "Borderline/dual classification — refer to component symbol descriptions and apply engineering judgment."
+    return "Borderline/dual classification  -  refer to component symbol descriptions and apply engineering judgment."
 
 
 def generate_interpretation(result: dict, grad: dict, LL: float, PI: float, is_np: bool) -> str:
@@ -257,13 +257,13 @@ def generate_interpretation(result: dict, grad: dict, LL: float, PI: float, is_n
             lines.append(f"Coefficient of Uniformity (Cu) = {grad['Cu']}, Coefficient of Curvature (Cc) = {grad['Cc']}.")
 
     if not is_np and LL:
-        lines.append(f"Liquid Limit = {LL}, Plasticity Index = {PI} — "
+        lines.append(f"Liquid Limit = {LL}, Plasticity Index = {PI}  -  "
                      f"{'plots above' if plots_above_A_line(LL, PI) else 'plots below'} the A-line.")
     elif is_np:
         lines.append("Soil is non-plastic (NP).")
 
     if result.get("borderline"):
-        lines.append("This is a borderline/dual classification — both components should be considered in design.")
+        lines.append("This is a borderline/dual classification  -  both components should be considered in design.")
 
     if result.get("notes"):
         lines.append("")
@@ -438,6 +438,7 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
                     pdf.cell(width, line_height, line, 0, 2, align)
                 x += width
             pdf.set_y(y_start + row_height)
+            pdf.set_x(pdf.l_margin)  # never leave the cursor at a column's x position
 
         # --- Cover Page ---
         pdf.add_page()
@@ -555,11 +556,15 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
                 if not line:
                     pdf.ln(2)
                     continue
+                clean_line = line.lstrip("- ").strip()
+                if not clean_line:
+                    continue
                 if line.endswith(":") or line.startswith("USCS Classification"):
                     pdf.set_font("Arial", 'B', 10)
                 else:
                     pdf.set_font("Arial", '', 10)
-                pdf.multi_cell(0, 5.5, safe_text(line.lstrip("- ")))
+                pdf.set_x(pdf.l_margin)
+                pdf.multi_cell(0, 5.5, safe_text(clean_line))
 
             if s.get("gradation_chart_png"):
                 pdf.ln(4)
@@ -601,6 +606,7 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
         pdf.cell(0, 15, safe_text("Certification"), 0, 1, 'C')
         pdf.ln(4)
         pdf.set_font("Arial", '', 11)
+        pdf.set_x(pdf.l_margin)
         pdf.multi_cell(0, 7, safe_text(
             "This soil classification report has been reviewed and is certified as suitable "
             "for the stated project and engineering requirements."
@@ -637,6 +643,7 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
         prepared_by = f"Report prepared using {APP_TITLE} by {CLIENT_NAME}."
         if FOOTER_NOTE:
             prepared_by += f" {FOOTER_NOTE}"
+        pdf.set_x(pdf.l_margin)
         pdf.multi_cell(0, 5, safe_text(prepared_by))
         pdf.set_text_color(0, 0, 0)
 
@@ -652,7 +659,7 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
 # =============================================================================
 
 st.title("🧱 USCS Soil Classification System")
-st.caption(f"⚡ Powered by {CLIENT_NAME} — ASTM D2487")
+st.caption(f"⚡ Powered by {CLIENT_NAME}  -  ASTM D2487")
 
 st.markdown("**Project Name**")
 project_name = st.text_input("", "Unnamed Project", key="project_name_input", label_visibility="collapsed")
@@ -716,7 +723,7 @@ with tab_single:
     with col4:
         is_peat = st.checkbox(
             "Peat (predominantly organic, dark, fibrous, organic odor)", key="single_peat",
-            help="Peat is classified as PT by visual-manual examination — the standard sieve/Atterberg procedure does not apply."
+            help="Peat is classified as PT by visual-manual examination  -  the standard sieve/Atterberg procedure does not apply."
         )
 
     if st.button("🚀 Classify Sample", key="single_classify_btn"):
