@@ -62,8 +62,12 @@ def interp_size_at_percent_passing(sizes_mm, percent_passing, target_percent):
     pairs = sorted(zip(percent_passing, sizes_mm))
     p = [x[0] for x in pairs]
     d = [x[1] for x in pairs]
-    if target_percent <= p[0] or target_percent >= p[-1]:
+    if target_percent < p[0] or target_percent > p[-1]:
         return None
+    if target_percent == p[0]:
+        return d[0]
+    if target_percent == p[-1]:
+        return d[-1]
     for i in range(len(p) - 1):
         if p[i] <= target_percent <= p[i + 1]:
             if p[i] == p[i + 1]:
@@ -168,18 +172,28 @@ def classify_coarse_grained(is_gravel, pct_fines, Cu, Cc, LL, PI, is_np, is_orga
         fines_symbol, fines_borderline = "C", False
 
     notes = []
-    if not grading_known:
-        notes.append("Insufficient gradation data to confirm Cu/Cc  -  grading (W/P) assumed poorly-graded pending full sieve data.")
+    INSUFFICIENT_GRADING_NOTE = (
+        "Insufficient gradation data to confirm Cu/Cc  -  grading (W/P) assumed poorly-graded "
+        "pending full sieve data (this is expected when the required D-value falls below the "
+        "finest sieve tested, e.g. D10 when fines are near or above 10%)."
+    )
 
     if pct_fines < 5:
+        if not grading_known:
+            notes.append(INSUFFICIENT_GRADING_NOTE)
         return f"{prefix}{grading_symbol}", False, notes
     elif pct_fines > 12:
+        # Grading (Cu/Cc) is not part of the ASTM procedure once fines exceed
+        # 12% - classification is driven entirely by the fines' plasticity -
+        # so an unresolved Cu/Cc here is irrelevant and not flagged.
         if fines_borderline:
             notes.append("Fines plot in the 4<=PI<=7 hatched zone on/above the A-line  -  borderline silty/clayey classification.")
             return f"{prefix}C-{prefix}M", True, notes
         return f"{prefix}{fines_symbol}", False, notes
     else:
-        # 5-12% fines: dual symbol required
+        # 5-12% fines: dual symbol required, and grading DOES matter here
+        if not grading_known:
+            notes.append(INSUFFICIENT_GRADING_NOTE)
         if fines_borderline:
             notes.append(
                 "Both the gradation (5-12% fines, dual symbol required) and the fines plasticity "
