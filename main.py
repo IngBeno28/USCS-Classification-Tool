@@ -675,6 +675,14 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
 # 6. UI
 # =============================================================================
 
+if LOGO_PATH and os.path.exists(LOGO_PATH):
+    st.image(LOGO_PATH, width=180)
+else:
+    st.caption(
+        f"⚠️ Logo not found at `{LOGO_PATH}` (checked from `{os.getcwd()}`). "
+        "The PDF report's cover page will render without a logo until this is fixed."
+    )
+
 st.title("🧱 USCS Soil Classification System")
 st.caption(f"⚡ Powered by {CLIENT_NAME}  -  ASTM D2487")
 
