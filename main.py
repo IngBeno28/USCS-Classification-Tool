@@ -647,7 +647,10 @@ def create_pdf_report(samples: list, project_name: str, client_name: str = "",
         pdf.multi_cell(0, 5, safe_text(prepared_by))
         pdf.set_text_color(0, 0, 0)
 
-        return pdf.output(dest='S').encode('latin-1', errors='replace')
+        pdf_output = pdf.output()
+        if isinstance(pdf_output, (bytes, bytearray)):
+            return bytes(pdf_output)
+        return pdf_output.encode('latin-1', errors='replace')
 
     except Exception as e:
         st.error(f"PDF generation failed: {str(e)}")
