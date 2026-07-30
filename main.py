@@ -682,6 +682,31 @@ else:
         f"⚠️ Logo not found at `{LOGO_PATH}` (checked from `{os.getcwd()}`). "
         "The PDF report's cover page will render without a logo until this is fixed."
     )
+    with st.expander("🔧 Logo diagnostics (what this deployment actually sees)"):
+        cwd = os.getcwd()
+        st.write("**Working directory:**", f"`{cwd}`")
+        try:
+            root_items = sorted(os.listdir(cwd))
+            st.write("**Repo root contents:**")
+            st.code("\n".join(repr(item) for item in root_items))  # repr() reveals hidden spaces/case
+        except Exception as e:
+            st.write(f"Could not list root directory: {e}")
+
+        assets_dir = os.path.join(cwd, "assets")
+        if os.path.isdir(assets_dir):
+            try:
+                assets_items = sorted(os.listdir(assets_dir))
+                st.write("**`assets/` folder contents:**")
+                st.code("\n".join(repr(item) for item in assets_items))
+            except Exception as e:
+                st.write(f"Could not list assets directory: {e}")
+        else:
+            st.write("**No `assets/` folder found at the repo root of this deployment.**")
+            st.caption(
+                "If GitHub's web UI shows the folder but it's missing here, this deployment is likely "
+                "running a stale checkout from before that commit. Try Manage app -> Reboot, and if "
+                "that doesn't pick it up, delete and redeploy the app to force a fresh clone."
+            )
 
 st.title("🧱 USCS Soil Classification System")
 st.caption(f"⚡ Powered by {CLIENT_NAME}  -  ASTM D2487")
