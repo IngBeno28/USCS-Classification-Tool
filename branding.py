@@ -9,6 +9,6 @@ FOOTER_NOTE = "© 2025 USCS Classifier | Built for engineering precision"
 # Shown in the PDF report footer and cover page.
 # Leave any value as "" to omit that line from the report.
 COMPANY_ADDRESS = ""       # e.g. "12 Independence Ave, Accra, Ghana"
-COMPANY_PHONE = ""         # e.g. "+233 20 000 0000"
+COMPANY_PHONE = "+233501365878/+233256346244"         # e.g. "+233 20 000 0000"
 COMPANY_EMAIL = ""         # e.g. "info@automationhub.com"
-COMPANY_WEBSITE = ""       # e.g. "www.automationhub.com"
+COMPANY_WEBSITE = "https://automationapps.streamlit.app/"       # e.g. "www.automationhub.com"
