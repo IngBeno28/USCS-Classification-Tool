@@ -3,7 +3,7 @@ APP_TITLE = "USCS Soil Classification System"
 PRIMARY_COLOR = "#0052cc"
 LOGO_PATH = "assets/2.png"  # Path to your logo file
 LOGO_ALT_TEXT = f"{CLIENT_NAME} - {APP_TITLE}"
-FOOTER_NOTE = "© 2025 USCS Classifier | Built for engineering precision"
+FOOTER_NOTE = "© 2026 USCS Classifier | Built for engineering precision"
 
 # --- Company Contact Details ---
 # Shown in the PDF report footer and cover page.
