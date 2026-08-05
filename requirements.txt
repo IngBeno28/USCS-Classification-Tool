@@ -1,6 +1,8 @@
-streamlit>=1.32.0
-pandas>=2.0.0
-numpy>=1.24.0
-matplotlib>=3.7.0
-fpdf2>=2.7.0
-Pillow>=10.0.0
+streamlit==1.61.0
+starlette==0.46.0
+uvicorn==0.34.0
+pandas
+numpy
+matplotlib
+fpdf2
+pillow
