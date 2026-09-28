@@ -9,7 +9,7 @@ from typing import List, Optional
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import streamlit as st
 from fpdf import FPDF
 from PIL import Image
