@@ -1,8 +1,11 @@
 streamlit==1.61.0
 starlette==0.46.0
 uvicorn==0.34.0
-pandas
-numpy
-matplotlib
-fpdf2
-pillow
+pandas==2.3.3
+numpy==2.2.6
+matplotlib==3.10.9
+fpdf2==2.8.8
+pillow==12.3.0
+python-dateutil>=2.8.2
+
+
